@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kickstart Coding - Variables</title>
+  
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="JsLesson.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Kickstart Coding</a></h1>
+    <h2>JavaScript Lesson: Variables</h2>
+    <p class="tagline">Learn to code from the very beginning</p>
+  </header>
+
+  <main class="lesson-container">
+    <div class="lesson-grid">
+      
+      <section class="language-card instruction-card">
+        <h3>1. Instructions</h3>
+        <div class="card-content">
+          <p>Variables are like labelled boxes where you can store information to use later.</p>
+
+          <p>Think of a variable as a name tag on a box that holds something inside.</p>
+
+          <p>Example: Store a number in a variable called age:</p>
+
+          <p>let age = 5;</p>
+
+          <p>Step-by-step:</p>
+          <p>1. JavaScript sees "let age = 5;".</p>
+          <p>2. It creates a box called "age".</p>
+          <p>3. It puts the number 5 inside that box.</p>
+
+          <p>Guided experiment: Print the variable:</p>
+
+          <p>console.log(age);</p>
+
+          <p>Try changing the value of age to 10 and run the code. What happens?</p>
+
+          <p>Takeaway: Variables hold information that you can use or change later in your code.</p>
+        </div>
+      </section>
+
+      <section class="language-card editor-card">
+        <h3>2. Code Editor</h3>
+        <textarea id="code-editor">// Write your JavaScript code here...
+</textarea>
+        <button id="run-btn" class="card-button">Run Code</button>
+      </section>
+
+      <section class="language-card output-card">
+        <h3>3. Output</h3>
+        <div class="output-wrapper">
+          <pre id="output-area">(Your output will appear here)</pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Built by Aahil Shah – MYP Personal Project 2025</p>
+    <div class="lesson-nav" style="display: flex; justify-content: space-between; margin-top: 20px; width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto;">
+      <a href="JsLesson1.html" class="card-button" style="background-color: #2D3748; color: #00FF90; text-decoration: none;">« Previous</a>
+      <a href="JsLesson3.html" class="card-button" style="text-decoration: none;">Next Lesson »</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+
+  <script>
+    let editor;
+
+    window.onload = function () {
+      editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+        mode: "javascript",
+        theme: "dracula",
+        lineNumbers: true,
+        indentUnit: 4,
+        smartIndent: true,
+        tabSize: 4
+      });
+    };
+
+    function runCode() {
+      const outputArea = document.getElementById("output-area");
+      const code = editor.getValue();
+      outputArea.textContent = ""; 
+
+      // Redirect console.log to our output box
+      const oldLog = console.log;
+      console.log = function(msg) {
+        outputArea.textContent += msg + "\n";
+      };
+
+      try {
+        // Execute the user's JS code
+        eval(code);
+      } catch (err) {
+        outputArea.textContent = "Error: " + err.message;
+      }
+
+      // Restore original console.log
+      console.log = oldLog;
+    }
+
+    document.getElementById("run-btn").addEventListener("click", runCode);
+  </script>
+</body>
+</html>

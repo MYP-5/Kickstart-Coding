@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kickstart Coding - If Statements</title>
+  
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="PyLesson.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Kickstart Coding</a></h1>
+    <h2>Python Lesson: If Statements</h2>
+    <p class="tagline">Learn to code from the very beginning</p>
+  </header>
+
+  <main class="lesson-container">
+    <div class="lesson-grid">
+      
+      <section class="language-card instruction-card">
+        <h3>1. Instructions</h3>
+        <div class="card-content">
+          <p>If statements let your code make decisions based on conditions.</p>
+
+          <p>Think of it like a choice: if something is true, do one thing, otherwise do something else.</p>
+
+          <p>Type this code into the editor:</p>
+
+          <p>age = 15<br>if age &lt; 13:<br>.    print("You are a child")<br>elif age &lt; 18:<br>.    print("You are a teenager")<br>else:<br>.    print("You are an adult")</p>
+
+          <p>Step-by-step:</p>
+          <p>1. Python checks the first if condition.</p>
+          <p>2. If it is false, it checks the elif condition.</p>
+          <p>3. If all conditions are false, it runs the else code.</p>
+
+          <p>Guided experiment: Change the value of age and predict which message will print before running the code.</p>
+
+          <p>Takeaway: if, elif, and else let your program choose between different outcomes.</p>
+
+        </div>
+      </section>
+
+      <section class="language-card editor-card">
+        <h3>2. Code Editor</h3>
+        <textarea id="code-editor"># Write your code here...
+</textarea>
+        <button id="run-btn" class="card-button">Run Code</button>
+      </section>
+
+      <section class="language-card output-card">
+        <h3>3. Output</h3>
+        <div class="output-wrapper">
+          <pre id="output-area">(Your output will appear here)</pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Built by Aahil Shah – MYP Personal Project 2025</p>
+    <div class="lesson-nav" style="display: flex; justify-content: space-between; margin-top: 20px; width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto;">
+      <a href="PyLesson4.html" class="card-button" style="background-color: #2D3748; color: #00FF90; text-decoration: none;">« Previous</a>
+      <a href="PyLesson6.html" class="card-button" style="text-decoration: none;">Next Lesson »</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+  <script>
+    let editor;
+
+    window.onload = function () {
+      editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+        mode: "python",
+        theme: "dracula",
+        lineNumbers: true,
+        indentUnit: 4,
+        smartIndent: true,
+        tabSize: 4
+      });
+    };
+
+    function builtinRead(x) {
+      if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
+        throw "File not found: '" + x + "'";
+      }
+      return Sk.builtinFiles["files"][x];
+    }
+
+    function runCode() {
+      const outputArea = document.getElementById("output-area");
+      const code = editor.getValue();
+      outputArea.textContent = ""; 
+
+      if (typeof Sk === "undefined") {
+        outputArea.textContent = "Error: Python engine loading...";
+        return;
+      }
+
+      Sk.configure({
+        output: function (text) { outputArea.textContent += text; },
+        read: builtinRead,
+        inputfun: function (prompt) {
+          return window.prompt(prompt);
+        },
+        inputfunTakesPrompt: true
+      });
+
+      Sk.misceval.asyncToPromise(() =>
+        Sk.importMainWithBody("<stdin>", false, code, true)
+      ).catch((err) => {
+        outputArea.textContent = "Error: " + err.toString();
+      });
+    }
+
+    document.getElementById("run-btn").addEventListener("click", runCode);
+  </script>
+</body>
+</html>

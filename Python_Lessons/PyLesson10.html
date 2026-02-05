@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kickstart Coding - Final Project</title>
+  
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="PyLesson.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Kickstart Coding</a></h1>
+    <h2>Python Lesson: Final Project</h2>
+    <p class="tagline">Learn to code from the very beginning</p>
+  </header>
+
+  <main class="lesson-container">
+    <div class="lesson-grid">
+      
+      <section class="language-card instruction-card">
+        <h3>1. Instructions</h3>
+        <div class="card-content">
+          <p>This final lesson brings together everything you have learned so far.</p>
+
+          <p>Your goal is to create a simple program that talks to the user and makes a decision.</p>
+
+          <p>Start with creating two input variables, one to ask the user their name, and another to ask their age.</p>
+
+          <p>Add an if statement that:</p>
+          <p>- Prints one message if the user is under 18</p>
+          <p>- Prints a different message if they are 18 or older</p>
+
+          <p>Optional challenge: Store a list of favourite foods and use a for loop to print them.</p>
+
+          <p>Takeaway: This project shows how input, variables, if statements, and loops work together.</p>
+
+
+        </div>
+      </section>
+
+      <section class="language-card editor-card">
+        <h3>2. Code Editor</h3>
+        <textarea id="code-editor"># Write your code here...
+</textarea>
+        <button id="run-btn" class="card-button">Run Code</button>
+      </section>
+
+      <section class="language-card output-card">
+        <h3>3. Output</h3>
+        <div class="output-wrapper">
+          <pre id="output-area">(Your output will appear here)</pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="lesson-nav" style="display: flex; justify-content: space-between; margin-top: 20px; width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto;">
+      <a href="PyLesson9.html" class="card-button" style="background-color: #2D3748; color: #00FF90; text-decoration: none;">« Previous</a>
+      <a href="../index.html" class="card-button" style="text-decoration: none;">Back to home</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+  <script>
+    let editor;
+
+    window.onload = function () {
+      editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+        mode: "python",
+        theme: "dracula",
+        lineNumbers: true,
+        indentUnit: 4,
+        smartIndent: true,
+        tabSize: 4
+      });
+    };
+
+    function builtinRead(x) {
+      if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
+        throw "File not found: '" + x + "'";
+      }
+      return Sk.builtinFiles["files"][x];
+    }
+
+    function runCode() {
+      const outputArea = document.getElementById("output-area");
+      const code = editor.getValue();
+      outputArea.textContent = ""; 
+
+      if (typeof Sk === "undefined") {
+        outputArea.textContent = "Error: Python engine loading...";
+        return;
+      }
+
+      Sk.configure({
+        output: function (text) { outputArea.textContent += text; },
+        read: builtinRead,
+        inputfun: function (prompt) {
+          return window.prompt(prompt);
+        },
+        inputfunTakesPrompt: true
+      });
+
+      Sk.misceval.asyncToPromise(() =>
+        Sk.importMainWithBody("<stdin>", false, code, true)
+      ).catch((err) => {
+        outputArea.textContent = "Error: " + err.toString();
+      });
+    }
+
+    document.getElementById("run-btn").addEventListener("click", runCode);
+  </script>
+</body>
+</html>

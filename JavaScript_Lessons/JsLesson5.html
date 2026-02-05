@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kickstart Coding - If Statements</title>
+  
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="JsLesson.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Kickstart Coding</a></h1>
+    <h2>JavaScript Lesson: If Statements</h2>
+    <p class="tagline">Learn to code from the very beginning</p>
+  </header>
+
+  <main class="lesson-container">
+    <div class="lesson-grid">
+      
+      <section class="language-card instruction-card">
+        <h3>1. Instructions</h3>
+        <div class="card-content">
+          <p>If statements let your code make decisions based on conditions.</p>
+
+          <p>Think of it like a choice: if something is true, do one thing, otherwise do something else.</p>
+
+          <p>Type this code into the editor:</p>
+
+          <p>let age = 15;<br>if (age &lt; 13) {<br>    console.log("You are a child");<br>} else if (age &lt; 18) {<br>    console.log("You are a teenager");<br>} else {<br>    console.log("You are an adult");<br>}</p>
+
+          <p>Step-by-step:</p>
+          <p>1. JavaScript checks the first if condition.</p>
+          <p>2. If it is false, it checks the else if condition.</p>
+          <p>3. If all conditions are false, it runs the else code.</p>
+
+          <p>Guided experiment: Change the value of age and predict which message will print before running the code.</p>
+
+          <p>Takeaway: if, else if, and else let your program choose between different outcomes.</p>
+        </div>
+      </section>
+
+      <section class="language-card editor-card">
+        <h3>2. Code Editor</h3>
+        <textarea id="code-editor">// Write your JavaScript code here...
+</textarea>
+        <button id="run-btn" class="card-button">Run Code</button>
+      </section>
+
+      <section class="language-card output-card">
+        <h3>3. Output</h3>
+        <div class="output-wrapper">
+          <pre id="output-area">(Your output will appear here)</pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Built by Aahil Shah – MYP Personal Project 2025</p>
+    <div class="lesson-nav" style="display: flex; justify-content: space-between; margin-top: 20px; width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto;">
+      <a href="JsLesson4.html" class="card-button" style="background-color: #2D3748; color: #00FF90; text-decoration: none;">« Previous</a>
+      <a href="JsLesson6.html" class="card-button" style="text-decoration: none;">Next Lesson »</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+
+  <script>
+    let editor;
+
+    window.onload = function () {
+      editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+        mode: "javascript",
+        theme: "dracula",
+        lineNumbers: true,
+        indentUnit: 4,
+        smartIndent: true,
+        tabSize: 4
+      });
+    };
+
+    function runCode() {
+      const outputArea = document.getElementById("output-area");
+      const code = editor.getValue();
+      outputArea.textContent = ""; 
+
+      // Redirect console.log to our output box
+      const oldLog = console.log;
+      console.log = function(msg) {
+        outputArea.textContent += msg + "\n";
+      };
+
+      try {
+        // Execute the user's JS code
+        eval(code);
+      } catch (err) {
+        outputArea.textContent = "Error: " + err.message;
+      }
+
+      // Restore original console.log
+      console.log = oldLog;
+    }
+
+    document.getElementById("run-btn").addEventListener("click", runCode);
+  </script>
+</body>
+</html>

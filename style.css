@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  font-family: 'Share Tech Mono', monospace;
+  background: linear-gradient(to bottom right, #0D1117, #1A202C);
+  color: #c9d1d9;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header {
+  background-color: #161B22;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #2D3748;
+}
+
+header h1 {
+  margin: 0;
+  color: #00FF90;
+}
+
+.tagline {
+  font-size: 1rem;
+  margin-top: 5px;
+  color: #C9D1D9;
+}
+
+.hero {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #C9D1D9;
+}
+
+.start-button {
+  background-color: #00FF90;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #0D1117;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+  background-color: #00cc73;
+}
+
+/* Card Section */
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 40px 20px 80px;
+}
+
+.language-card {
+  background-color: #161B22;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 0 10px #00000080;
+}
+
+.language-card img {
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.language-card h2 {
+  margin: 10px 0;
+  color: #00FF90;
+}
+
+.language-card p {
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  color: #C9D1D9;
+}
+
+.card-button {
+  background-color: #00FF90;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #0D1117;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.card-button:hover {
+  background-color: #00cc73;
+}
+
+footer {
+  background-color: #161B22;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: #C9D1D9;
+  border-top: 1px solid #2D3748;
+}
+
+/* Hover animations for buttons and cards */
+.start-button,
+.card-button,
+.language-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.start-button:hover,
+.card-button:hover,
+.language-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 255, 144, 0.3);
+}

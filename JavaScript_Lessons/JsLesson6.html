@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kickstart Coding - Loops</title>
+  
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="JsLesson.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html">Kickstart Coding</a></h1>
+    <h2>JavaScript Lesson: Loops</h2>
+    <p class="tagline">Learn to code from the very beginning</p>
+  </header>
+
+  <main class="lesson-container">
+    <div class="lesson-grid">
+      
+      <section class="language-card instruction-card">
+        <h3>1. Instructions</h3>
+        <div class="card-content">
+          <p>Loops let your code repeat actions without writing the same code again.</p>
+
+          <p>A for loop is used when you want to repeat something for each item in a list.</p>
+
+          <p>Type this code into the editor:</p>
+
+          <p>let fruits = ["apple", "banana", "cherry"];<br>for (let fruit of fruits) {<br>    console.log(fruit);<br>}</p>
+
+          <p>Step-by-step:</p>
+          <p>1. JavaScript looks at the array called fruits.</p>
+          <p>2. It takes one item at a time from the array.</p>
+          <p>3. Each item is stored in the variable fruit.</p>
+          <p>4. console.log(fruit) runs once for each item.</p>
+
+          <p>Guided experiment: Add another fruit to the array and run the code again.</p>
+
+          <p>Takeaway: for loops let you repeat actions for each item in an array.</p>
+        </div>
+      </section>
+
+      <section class="language-card editor-card">
+        <h3>2. Code Editor</h3>
+        <textarea id="code-editor">// Write your JavaScript code here...
+</textarea>
+        <button id="run-btn" class="card-button">Run Code</button>
+      </section>
+
+      <section class="language-card output-card">
+        <h3>3. Output</h3>
+        <div class="output-wrapper">
+          <pre id="output-area">(Your output will appear here)</pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Built by Aahil Shah – MYP Personal Project 2025</p>
+    <div class="lesson-nav" style="display: flex; justify-content: space-between; margin-top: 20px; width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto;">
+      <a href="Jslesson5.html" class="card-button" style="background-color: #2D3748; color: #00FF90; text-decoration: none;">« Previous</a>
+      <a href="JsLesson7.html" class="card-button" style="text-decoration: none;">Next Lesson »</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+
+  <script>
+    let editor;
+
+    window.onload = function () {
+      editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+        mode: "javascript",
+        theme: "dracula",
+        lineNumbers: true,
+        indentUnit: 4,
+        smartIndent: true,
+        tabSize: 4
+      });
+    };
+
+    function runCode() {
+      const outputArea = document.getElementById("output-area");
+      const code = editor.getValue();
+      outputArea.textContent = ""; 
+
+      // Redirect console.log to our output box
+      const oldLog = console.log;
+      console.log = function(msg) {
+        outputArea.textContent += msg + "\n";
+      };
+
+      try {
+        // Execute the user's JS code
+        eval(code);
+      } catch (err) {
+        outputArea.textContent = "Error: " + err.message;
+      }
+
+      // Restore original console.log
+      console.log = oldLog;
+    }
+
+    document.getElementById("run-btn").addEventListener("click", runCode);
+  </script>
+</body>
+</html>
